@@ -3,9 +3,10 @@ body {
   color:white;
   font-family: 'Comfortaa', cursive;
 }
-table {
-  text-align:left;
+a:link,
+a:visited {
+  color:lightblue;
 }
-table td {
-  padding:5px 10px;
+#projects-container {
+  font-size:130%;
 }

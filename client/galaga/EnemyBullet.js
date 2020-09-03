@@ -24,7 +24,7 @@ class EnemyBullet extends Phaser.GameObjects.Image {
   update(time, delta){
     this.x += this.xSpeed * delta;
     this.y += this.ySpeed * delta;
-    if(this.y > this.scene.game.config.height){
+    if(this.y > this.scene.game.config.height || this.y < 0){
       this.destroy();
     }
   }

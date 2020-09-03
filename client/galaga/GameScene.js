@@ -18,6 +18,7 @@ class GameScene extends Phaser.Scene {
     this.enemySpeed = 1;
     this.shipLaserBorn = 0;
     this.enemiesMovingRight = true;
+    this.enemiesMovingDown = true;
     this.score = 0;
     this.gameOver = false;
   }
@@ -186,22 +187,38 @@ class GameScene extends Phaser.Scene {
       //if any enemies overlap right side of screen
       if(this.game.config.width < enemy.x + enemy.width){
         this.enemiesMovingRight = false;
-        this.shiftEnemiesDown();
+        this.shiftEnemies();
         return;
       }
       //if any enemies overlap left side of screen
       if(enemy.x < 0 + enemy.width){
         this.enemiesMovingRight = true;
-        this.shiftEnemiesDown();
+        this.shiftEnemies();
+        return;
+      }
+      //if enemies touch bottom of screen
+      if(enemy.y + enemy.height > this.game.config.height){
+        this.enemiesMovingDown = false;
+        this.shiftEnemies();
+        return;
+      }
+      //if enemies touch top of screen
+      if(enemy.y < 0){
+        this.enemiesMovingDown = true;
+        this.shiftEnemies();
         return;
       }
     }
   }
 
-  shiftEnemiesDown(){
+  shiftEnemies(){
     for(var i = 0; i < this.enemies.getChildren().length; i++){
       var enemy = this.enemies.getChildren()[i];
-      enemy.y += this.enemyShiftDistance;
+      if(this.enemiesMovingDown){
+        enemy.y += this.enemyShiftDistance;
+      } else {
+        enemy.y -= this.enemyShiftDistance;
+      }
     }
   }
 
