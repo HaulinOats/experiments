@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Brett Connolly",
@@ -12,5 +12,8 @@
   "dependencies": {
     "express": "^4.17.1",
     "phaser": "^3.24.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }
