@@ -6,6 +6,15 @@ const publicPath = path.join(__dirname, 'client');
 
 app.use(express.static(publicPath));
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
+
+app.get('/', (req, res)=>{
+  res.sendFile(publicPath + '/index.html');
+})
+
 app.get('/galaga', (req, res)=>{
   res.sendFile(publicPath + '/galaga');
 })
