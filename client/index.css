@@ -1,0 +1,11 @@
+body {
+  background-image:url('img/y-so-serious.png');
+  color:white;
+  font-family: 'Comfortaa', cursive;
+}
+table {
+  text-align:left;
+}
+table td {
+  padding:5px 10px;
+}
