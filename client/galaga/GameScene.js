@@ -21,9 +21,19 @@ class GameScene extends Phaser.Scene {
     this.enemiesMovingDown = true;
     this.score = 0;
     this.gameOver = false;
+    this.highScores = [];
   }
 
   preload(){
+    this.getScores();
+
+    //create container to contain HTML UI and append canvas to it
+    this.mainUIContainer = document.getElementById('main-container');
+    this.mainUIContainer.style.width = this.game.config.width + 'px';
+    this.mainUIContainer.style.height = this.game.config.height + 'px';
+    document.body.appendChild(this.mainUIContainer);
+    this.mainUIContainer.appendChild(this.game.context.canvas);
+
     this.load.image('background', 'assets/background.png');
     this.load.image('ship', 'assets/ship.png');
     this.load.spritesheet('enemy', 'assets/enemySprite.png', {
@@ -84,26 +94,31 @@ class GameScene extends Phaser.Scene {
     })
 
     //create text objects
-    this.scoreText = new Text(this, 10, 10, `Score: 0`, {});
-    this.gameOverBtn = new Text(this, this.game.config.width/2, this.game.config.height/2, 'Game Over\nPress Enter', {fontSize:'40px', backgroundColor:'#FFF', color:'#000', align:'center'}).setVisible(false).setOrigin(0.5).setInteractive();
-    this.nextLevelBtn = new Text(this, this.game.config.width/2, this.game.config.height/2, 'Next Level\nPress Enter', {fontSize:'40px',backgroundColor:'#FFF', color:'#000', align:'center'}).setVisible(false).setOrigin(0.5).setInteractive();
+    this.scoreText = new Text(this, 10, 10, `Score: 0`, {fontSize:'20px'});
+
+    //grab ui elements
+    this.gameOverContainer = document.getElementById('game-over-container')
+    this.nextLevelContainer = document.getElementById('next-level-container');
+    this.highScoreBtn = document.getElementById('submit-high-score');
+    this.yourScore = document.getElementById('your-score');
+    this.yourNameInput = document.getElementById('score-name-input');
+    this.checkHighScoresBtn = document.getElementById('check-high-scores');
+    this.newHighScoreContainer = document.getElementById('new-high-score-container');
+    this.highScoresContainer = document.getElementById('high-scores-container');
+    this.scoreNameInput = document.getElementById('score-name-input');
 
     //handle player input
     this.upKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
-    this.altUpKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
     this.downKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
-    this.altDownKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     this.leftKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
-    this.altLeftKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
     this.rightKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
-    this.altRightKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     this.spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     this.enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
     
     //handle collisions
     this.physics.add.collider(this.enemies, this.shipLasers, this.enemyHit, null, this);
-    this.physics.add.collider(this.playerShip, this.enemies, this.shipCrash, null, this);
-    this.physics.add.collider(this.playerShip, this.enemyBullets, this.playerHit, null, this);
+    this.physics.add.collider(this.playerShip, this.enemies, this.shipDestroyed, null, this);
+    this.physics.add.collider(this.playerShip, this.enemyBullets, this.shipDestroyed, null, this);
 
     //event listeners
     if(this.isMobile){
@@ -114,11 +129,48 @@ class GameScene extends Phaser.Scene {
         }
       })
     }
-    this.nextLevelBtn.on('pointerdown', ()=>{
-      this.goToNextLevel();
-    });
-    this.gameOverBtn.on('pointerdown', ()=>{
-      this.resetGame();
+    this.gameOverContainer.addEventListener('pointerdown', this.actionHandler.bind(this));
+    this.nextLevelContainer.addEventListener('pointerdown', this.actionHandler.bind(this));
+    this.highScoreBtn.addEventListener('pointerdown', this.actionHandler.bind(this));
+    this.yourNameInput.addEventListener('pointerdown', this.actionHandler.bind(this));
+    this.highScoresContainer.addEventListener('pointerdown', this.actionHandler.bind(this));
+    this.checkHighScoresBtn.addEventListener('pointerdown', this.actionHandler.bind(this));
+  }
+  
+  actionHandler(e){
+    e.stopPropagation();
+    let id = e.currentTarget.id;
+    let classList = e.currentTarget.classList;
+    //handle IDs
+    switch(id){
+      case "next-level-container":
+        this.goToNextLevel();
+        break;
+      case "game-over-container":
+        this.newHighScoreContainer.classList.remove('show-ui-container');
+        this.resetGame();
+        break;
+      case "check-high-scores":
+        this.buildHighScoresHTML();
+        this.gameOverContainer.classList.remove('show-ui-container');
+        this.highScoresContainer.classList.add('show-ui-container');
+        break;
+      case "high-scores-container":
+        this.highScoresContainer.classList.remove('show-ui-container');
+        this.resetGame();
+        break;
+      case "submit-high-score":
+        this.addNewHighScore();
+        this.newHighScoreContainer.classList.remove('show-ui-container');
+        this.gameOverContainer.classList.remove('show-ui-container');
+        this.highScoresContainer.classList.add('show-ui-container');
+        break;
+    }
+    //handle classes
+    classList.forEach(className=>{
+      switch(className){
+
+      }
     })
   }
 
@@ -132,19 +184,19 @@ class GameScene extends Phaser.Scene {
       this.enemyFire();
     }
     
-    if (this.upKey.isDown || this.altUpKey.isDown) {
+    if (this.upKey.isDown) {
       this.playerShip.moveUp();
     }
 
-    if(this.downKey.isDown || this.altDownKey.isDown){
+    if(this.downKey.isDown){
       this.playerShip.moveDown();
     }
 
-    if(this.leftKey.isDown || this.altLeftKey.isDown){
+    if(this.leftKey.isDown){
       this.playerShip.moveLeft();
     }
 
-    if(this.rightKey.isDown || this.altRightKey.isDown){
+    if(this.rightKey.isDown){
       this.playerShip.moveRight();
     }
 
@@ -241,7 +293,7 @@ class GameScene extends Phaser.Scene {
     enemy.destroy();
     if(!this.enemies.getFirstAlive()){
       this.destroyAllBullets();
-      this.nextLevelBtn.setVisible(true).setActive(true);
+      this.nextLevelContainer.classList.add('show-ui-container');
     }
   }
 
@@ -250,21 +302,15 @@ class GameScene extends Phaser.Scene {
     this.shipLasers.clear(true, true);
   }
 
-  playerHit(player, enemyBullet){
-    this.explosions.create(player.x, player.y);
+  shipDestroyed(){
+    this.checkHighScores();
+    this.explosions.create(this.playerShip.x, this.playerShip.y);
     this.destroyAllBullets();
-    player.setVisible(false);
-    this.emitter.stop();
-    this.gameOver = true;
-    this.gameOverBtn.setVisible(true);
-  }
-
-  shipCrash(){
-    this.explosions.create(player.x, player.y);
     this.playerShip.setVisible(false);
     this.emitter.stop();
-    this.gameOverBtn.setVisible(true);
     this.gameOver = true;
+    this.gameOverContainer.classList.add('show-ui-container');
+    this.yourScore.innerHTML = this.score;
   }
 
   playerFire(){
@@ -298,7 +344,7 @@ class GameScene extends Phaser.Scene {
     this.gameOver = false;
     this.enemyLastFired = this.game.getTime() + this.enemyBulletDelay;
     this.enemies.clear(true, true);
-    this.gameOverBtn.setVisible(false);
+    this.gameOverContainer.classList.remove('show-ui-container');
     this.playerShip.setVisible(true).setPosition(200, 550);
     this.emitter.start();
     this.populateEnemies();
@@ -307,12 +353,69 @@ class GameScene extends Phaser.Scene {
   goToNextLevel(){
     this.enemySpeed += 0.5;
     this.enemyLastFired = this.game.getTime() + this.enemyBulletDelay;
-    this.nextLevelBtn.setVisible(false);
+    this.nextLevelContainer.classList.remove('show-ui-container');
     this.enemyLastFired += 2000;
     this.populateEnemies();
     this.playerShip.setPosition(200, 550);
     this.destroyAllBullets();
     this.scene.resume();
+  }
+
+  checkHighScores(){
+    //check if users current score beats any on high score list
+    let isHighScore = false;
+    console.log(this.highScores);
+    this.highScores.forEach(scoreObj=>{
+      if(this.score > scoreObj.score){
+        isHighScore = true;
+        return;
+      }
+    })
+    if(isHighScore){
+      this.newHighScoreContainer.classList.add('show-ui-container');
+    }
+  }
+  
+  addNewHighScore(){
+    console.log('addNewHighScore');
+    this.highScores.push({
+      name:this.yourNameInput.value,
+      score:this.score
+    });
+    this.highScores.sort(this.sortByScore);
+    this.highScores = this.highScores.slice(0, 12);
+    this.buildHighScoresHTML();
+
+    axios.post('/galaga/high-scores', {
+      highScores:this.highScores
+    }).then(resp=>{
+      console.log(resp.data);
+    }).catch(err=>{
+      console.log(err);
+    })
+  }
+
+  getScores(){
+    axios.get('/galaga/high-scores').then(resp=>{
+      this.highScores = resp.data;
+      this.highScores.sort(this.sortByScore);
+    }).catch(err=>{
+      console.log(err);
+    })
+  }
+
+  buildHighScoresHTML(){
+    let scoresHTML = "";
+    this.highScores.forEach(scoreObj => {
+      scoresHTML += `<div><span class="score-name">${scoreObj.name}</span><span class="score-score">${scoreObj.score}</span></div>`;
+    });
+    document.getElementById('high-scores-inner').innerHTML = scoresHTML;
+  }
+  
+  sortByScore(a,b){
+    if(a.score > b.score) return -1;
+    if(a.score < b.score) return 1;
+    else return 0;
   }
 }
 

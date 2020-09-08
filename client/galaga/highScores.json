@@ -1,0 +1,52 @@
+{
+    "highScores": [
+        {
+            "name": "Tony",
+            "score": 3210
+        },
+        {
+            "name": "Jason",
+            "score": 3200
+        },
+        {
+            "name": "Brett",
+            "score": 2450
+        },
+        {
+            "name": "Brett",
+            "score": 1860
+        },
+        {
+            "name": "Tyler",
+            "score": 1520
+        },
+        {
+            "name": "Mary",
+            "score": 1450
+        },
+        {
+            "name": "John",
+            "score": 800
+        },
+        {
+            "name": "Robin",
+            "score": 750
+        },
+        {
+            "name": "Peter",
+            "score": 450
+        },
+        {
+            "name": "Tom",
+            "score": 250
+        },
+        {
+            "name": "Brett",
+            "score": 210
+        },
+        {
+            "name": "Brian",
+            "score": 200
+        }
+    ]
+}
