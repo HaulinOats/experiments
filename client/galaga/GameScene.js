@@ -28,11 +28,11 @@ class GameScene extends Phaser.Scene {
     this.getScores();
 
     //create container to contain HTML UI and append canvas to it
-    this.mainUIContainer = document.getElementById('main-container');
-    this.mainUIContainer.style.width = this.game.config.width + 'px';
-    this.mainUIContainer.style.height = this.game.config.height + 'px';
-    document.body.appendChild(this.mainUIContainer);
-    this.mainUIContainer.appendChild(this.game.context.canvas);
+    this.mainContainer = document.getElementById('main-container');
+    this.mainContainer.style.width = this.game.config.width + 'px';
+    this.mainContainer.style.height = this.game.config.height + 'px';
+    document.body.appendChild(this.mainContainer);
+    this.mainContainer.appendChild(this.game.context.canvas);
 
     this.load.image('background', 'assets/background.png');
     this.load.image('ship', 'assets/ship.png');
@@ -97,6 +97,7 @@ class GameScene extends Phaser.Scene {
     this.scoreText = new Text(this, 10, 10, `Score: 0`, {fontSize:'20px'});
 
     //grab ui elements
+    this.mainUIContainer = document.getElementById('main-ui-container');
     this.gameOverContainer = document.getElementById('game-over-container')
     this.nextLevelContainer = document.getElementById('next-level-container');
     this.highScoreBtn = document.getElementById('submit-high-score');
@@ -145,9 +146,11 @@ class GameScene extends Phaser.Scene {
     switch(id){
       case "next-level-container":
         this.goToNextLevel();
+        this.mainUIContainer.style.display = 'none';
         break;
       case "game-over-container":
         this.newHighScoreContainer.classList.remove('show-ui-container');
+        this.mainUIContainer.style.display = 'none';
         this.resetGame();
         break;
       case "check-high-scores":
@@ -157,6 +160,7 @@ class GameScene extends Phaser.Scene {
         break;
       case "high-scores-container":
         this.highScoresContainer.classList.remove('show-ui-container');
+        this.mainUIContainer.style.display = 'none';
         this.resetGame();
         break;
       case "submit-high-score":
@@ -303,6 +307,7 @@ class GameScene extends Phaser.Scene {
   }
 
   shipDestroyed(){
+    this.mainUIContainer.style.display = 'flex';
     this.checkHighScores();
     this.explosions.create(this.playerShip.x, this.playerShip.y);
     this.destroyAllBullets();
@@ -364,7 +369,6 @@ class GameScene extends Phaser.Scene {
   checkHighScores(){
     //check if users current score beats any on high score list
     let isHighScore = false;
-    console.log(this.highScores);
     this.highScores.forEach(scoreObj=>{
       if(this.score > scoreObj.score){
         isHighScore = true;
@@ -377,7 +381,6 @@ class GameScene extends Phaser.Scene {
   }
   
   addNewHighScore(){
-    console.log('addNewHighScore');
     this.highScores.push({
       name:this.yourNameInput.value,
       score:this.score
