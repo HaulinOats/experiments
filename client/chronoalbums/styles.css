@@ -1,0 +1,157 @@
+body {
+    margin-left:15px;
+    margin-top:15px;
+    font-family: 'Raleway', sans-serif;
+}
+#login {
+    margin-bottom:10px;
+}
+#logout, #login {
+    display:inline-block;
+    background: #1ed760;
+    color: white;
+    border-radius: 30px;
+    text-decoration: none;
+    padding: 8px;
+    box-shadow: 2px 2px 2px black;
+}
+.error-msg {
+    color:red;
+}
+#token-error {
+    display: none;
+}
+#oauth, #obtain-new-token {
+    display: none;
+}
+.text-overflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 500px;
+}
+#album-bg {
+    background-image: url('albums-bg.jpg');
+    background-size: cover;
+    height:100%;
+    width:100%;
+    position:fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    opacity:.3;
+}
+#page-content {
+    position:relative;
+}
+#album-sort-results {
+    margin-top:20px;
+}
+#sort-results-table {
+    width: 95%;
+    margin: 0 auto;
+    background: darkgrey;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+#sort-results-table th{
+    font-weight: bold;
+    background:darkgray;
+    padding:5px 0 5px 5px;
+    font-size:20px;
+    text-align: left;
+}
+#sort-results-table td{
+    padding:5px 0 5px 5px;
+}
+h1 {
+    font-family: 'Monoton', cursive;
+    display:inline-block;
+    font-weight: 100;
+    margin:0;
+}
+#profile-status {
+    float:right;
+    margin-top:2%;
+}
+#oauth {
+    
+}
+#oauth-inner {
+    
+}
+#user-profile {
+    position: absolute;
+    top: 0;
+    right: 1%;
+}
+#user-profile img {
+    display: inline-block;
+    width: 50px;
+}
+#user-profile p {
+    display: inline-block;
+}
+#about {
+    margin:1% 0%;
+    width:80%;
+    font-size:18px;
+}
+#find-and-sort {
+    display: none;
+    margin-bottom: 15px;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    background: steelblue;
+    color: white;
+    box-shadow: 2px 2px 3px black;
+    font-size:90%;
+}
+#find-and-sort:active {
+    box-shadow: none;
+}
+#loading-cont {
+    display:none;
+}
+#loading-cont img {
+    display:block;
+    margin:0 auto;
+}
+#loading-cont p {
+    text-align: center;
+    font-size:20px;
+}
+#release-date-sort {
+    cursor:pointer;
+}
+#years-label {
+    font-size:18px;
+    margin-bottom:20px;
+}
+#years-input {
+    padding: 6px;
+    font-size: 110%;
+    border-radius: 5px;
+    border: none;
+    box-shadow: inset 1px 1px 2px;
+    width: 46px;
+}
+#reset {
+    display:block;
+    background: crimson;
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px black;
+}
+.years-container {
+    margin-bottom:10px;
+}
+#user-profile-template {
+    display:none;
+    position:absolute;
+    top:0;
+    right:0;
+}

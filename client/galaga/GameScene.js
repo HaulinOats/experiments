@@ -25,14 +25,8 @@ class GameScene extends Phaser.Scene {
   }
 
   preload(){
+    this.createMainContainer();
     this.getScores();
-
-    //create container to contain HTML UI and append canvas to it
-    this.mainContainer = document.getElementById('main-container');
-    this.mainContainer.style.width = this.game.config.width + 'px';
-    this.mainContainer.style.height = this.game.config.height + 'px';
-    document.body.appendChild(this.mainContainer);
-    this.mainContainer.appendChild(this.game.context.canvas);
 
     this.load.image('background', 'assets/background.png');
     this.load.image('ship', 'assets/ship.png');
@@ -219,6 +213,14 @@ class GameScene extends Phaser.Scene {
         this.resetGame();
       }
     }
+  }
+
+  createMainContainer(){
+    this.mainContainer = document.getElementById('main-container');
+    this.mainContainer.style.width = this.game.config.width + 'px';
+    this.mainContainer.style.height = this.game.config.height + 'px';
+    document.body.appendChild(this.mainContainer);
+    this.mainContainer.appendChild(this.game.context.canvas);
   }
 
   populateEnemies(){
