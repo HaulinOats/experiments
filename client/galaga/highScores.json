@@ -37,16 +37,16 @@
             "score": 450
         },
         {
+            "name": "Harry",
+            "score": 380
+        },
+        {
             "name": "Tom",
             "score": 250
         },
         {
             "name": "Bob",
             "score": 230
-        },
-        {
-            "name": "Brett",
-            "score": 210
         }
     ]
 }

@@ -297,6 +297,7 @@ class GameScene extends Phaser.Scene {
     enemy.destroy();
     if(!this.enemies.getFirstAlive()){
       this.destroyAllBullets();
+      this.mainUIContainer.style.display = 'flex';
       this.nextLevelContainer.classList.add('show-ui-container');
     }
   }
