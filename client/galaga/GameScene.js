@@ -370,16 +370,26 @@ class GameScene extends Phaser.Scene {
   }
 
   checkHighScores(){
-    //check if users current score beats any on high score list
-    let isHighScore = false;
-    this.highScores.forEach(scoreObj=>{
-      if(this.score > scoreObj.score){
+    //if score is not greater than zero, don't do anything
+    if(this.score > 0){
+      let isHighScore = false;
+
+      //if there's less than 12 high scores, automatically add 
+      //current user to high score list, otherwise, check if user's
+      //score beats anyone else on the list
+      if(this.highScores.length < 12){
         isHighScore = true;
-        return;
+      } else {
+        this.highScores.forEach(scoreObj=>{
+          if(this.score > scoreObj.score){
+            isHighScore = true;
+            return;
+          }
+        })
       }
-    })
-    if(isHighScore){
-      this.newHighScoreContainer.classList.add('show-ui-container');
+      if(isHighScore){
+        this.newHighScoreContainer.classList.add('show-ui-container');
+      }
     }
   }
   
@@ -405,6 +415,7 @@ class GameScene extends Phaser.Scene {
     axios.get('/galaga/high-scores').then(resp=>{
       this.highScores = resp.data;
       this.highScores.sort(this.sortByScore);
+      console.log(this.highScores);
     }).catch(err=>{
       console.log(err);
     })

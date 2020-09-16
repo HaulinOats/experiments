@@ -65,6 +65,9 @@ canvas {
 #high-score-enter-name-container {
   margin:2% 0;
 }
+#score-name-input {
+  padding:7px;
+}
 #submit-high-score:active {
   box-shadow: none;
 }

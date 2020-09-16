@@ -37,19 +37,21 @@ app.get('/', (req, res)=>{
 //GALAGA ROUTES
 
 //db for galaga
-const jsonDB = require('simple-json-db');
-const db = new jsonDB('./client/galaga/highScores.json');
+const low = require('lowdb')
+const FileSync = require('lowdb/adapters/FileSync')
+const adapter = new FileSync('db.json')
+const db = low(adapter)
 
 app.get('/galaga', (req, res)=>{
   res.sendFile(publicPath + '/galaga');
 })
 
 app.get('/galaga/high-scores', (req, res)=>{
-  res.send(db.get('highScores'));
+  res.send(db.get('galaga.highScores').value());
 })
 
 app.post('/galaga/high-scores', (req, res)=>{
-  db.set('highScores', req.body.highScores);
+  db.set('galaga.highScores', req.body.highScores).write();
   res.send(true);
 })
 
