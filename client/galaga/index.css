@@ -50,6 +50,9 @@ canvas {
 #new-high-score-container {
   display:none;
 }
+#new-high-score-container p {
+  font-weight:bold;
+}
 #check-high-scores,
 #submit-high-score {
   border: none;

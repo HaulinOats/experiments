@@ -36,7 +36,7 @@ app.get('/', (req, res)=>{
 
 //GALAGA ROUTES
 
-//db for galaga
+//db for galaga high scores
 const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
 const adapter = new FileSync('db.json')

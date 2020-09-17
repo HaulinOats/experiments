@@ -30,9 +30,13 @@ class GameScene extends Phaser.Scene {
 
     this.load.image('background', 'assets/background.png');
     this.load.image('ship', 'assets/ship.png');
-    this.load.spritesheet('enemy', 'assets/enemySprite.png', {
+    this.load.spritesheet('blueEnemy', 'assets/blueEnemy.png', {
       frameWidth:15,
       frameHeight:16
+    });
+    this.load.spritesheet('greenEnemy', 'assets/greenEnemy.png', {
+      frameWidth:15,
+      frameHeight:15
     });
     this.load.image('shipLaser', 'assets/shipLaser.png');
     this.load.image('enemyBullet', 'assets/enemyBullet.png');
@@ -100,7 +104,6 @@ class GameScene extends Phaser.Scene {
     this.checkHighScoresBtn = document.getElementById('check-high-scores');
     this.newHighScoreContainer = document.getElementById('new-high-score-container');
     this.highScoresContainer = document.getElementById('high-scores-container');
-    this.scoreNameInput = document.getElementById('score-name-input');
 
     //handle player input
     this.upKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
@@ -158,10 +161,12 @@ class GameScene extends Phaser.Scene {
         this.resetGame();
         break;
       case "submit-high-score":
-        this.addNewHighScore();
-        this.newHighScoreContainer.classList.remove('show-ui-container');
-        this.gameOverContainer.classList.remove('show-ui-container');
-        this.highScoresContainer.classList.add('show-ui-container');
+        if(this.yourNameInput.value.trim().length > 0){
+          this.addNewHighScore();
+          this.newHighScoreContainer.classList.remove('show-ui-container');
+          this.gameOverContainer.classList.remove('show-ui-container');
+          this.highScoresContainer.classList.add('show-ui-container');
+        }
         break;
     }
     //handle classes
@@ -225,7 +230,7 @@ class GameScene extends Phaser.Scene {
 
   populateEnemies(){
     //create first enemy to get actual width and height due to scaling then destroy it
-    let enemyRef = this.enemies.create(0 , 0, 'enemy');
+    let enemyRef = this.enemies.create(0 , 0, 'blueEnemy');
     this.enemyWidth = enemyRef.body.width;
     this.enemyHeight = enemyRef.body.height;
     enemyRef.destroy();
@@ -234,7 +239,11 @@ class GameScene extends Phaser.Scene {
     for(var i = 1; i < 4; i++){
       //8 columns
       for(var j = 1; j < 9; j++){
-        this.enemies.create(j * (this.enemyWidth + this.enemyPadding) , i * (this.enemyHeight + this.enemyPadding));
+        if(j % 2){
+          this.enemies.create(j * (this.enemyWidth + this.enemyPadding) , i * (this.enemyHeight + this.enemyPadding), 'blueEnemy');
+        } else {
+          this.enemies.create(j * (this.enemyWidth + this.enemyPadding) , i * (this.enemyHeight + this.enemyPadding), 'greenEnemy');
+        }
       }
     }
   }
