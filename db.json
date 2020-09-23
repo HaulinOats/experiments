@@ -1,18 +1,1 @@
-{
-  "galaga": {
-    "highScores": [
-      {
-        "name": "Brett",
-        "score": 1340
-      },
-      {
-        "name": "Brettski",
-        "score": 70
-      },
-      {
-        "name": "Bob",
-        "score": 20
-      }
-    ]
-  }
-}
+{}

@@ -1,0 +1,130 @@
+body {
+  background-image: url(./img/sun-pattern.png);
+  font-family: 'DM Sans', sans-serif;
+}
+#game-status-text {
+  display:none;
+  position: absolute;
+  text-align: center;
+  top: 25%;
+  width: 100%;
+  font-size: 250%;
+  margin: 0 auto;
+  font-weight: bold;
+  left: 0;
+  z-index: 2;
+}
+.top-container {
+  text-align:center;
+}
+.stand-btn {
+  margin: 0 auto;
+  display: block;
+  border-radius: 5px;
+  border: none;
+  background: cadetblue;
+  color: white;
+  padding: 8px 15px;
+  box-shadow: 2px 3px 3px black;
+  margin-bottom: 15px;
+  outline:0;
+  font-size:125%;
+  cursor:pointer;
+}
+.stand-btn:active {
+  box-shadow: none;
+}
+.deck-container{
+  position: relative;
+  margin: 0 auto;
+  height: 180px;
+  width: 130px;
+  margin-bottom: 10px;
+}
+.player-cards-container {
+  display:inline-block;
+  position:relative;
+}
+.cards-container .card{
+  transform:rotateY(180deg);
+}
+.top-card-container {
+  position:relative;
+  width:100%;
+  height:100%;
+}
+.card {
+  display:inline-block;
+  position:relative;
+  z-index: 1;
+  height:180px;
+  width:130px;
+  transition:0.8s;
+  transform-style: preserve-3d;
+  margin-right:8px;
+}
+.card img {
+  width:100%;
+}
+.deck-top-card img {
+  width:100%;
+}
+.deck-card-back, .deck-card-front {
+  position: absolute;
+  width:100%;
+  height:100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+/* .deck-container:hover .deck-card-single {
+  transform:rotateY(180deg);
+} */
+.flip-card {
+  transform: rotateY(180deg) !important;
+}
+.placed-card {
+  transform: rotateY(180deg) !important;
+}
+.deck-card-front {
+   transform: rotateY(180deg);
+}
+.default-back-container {
+  position: absolute;
+  top:0;
+  z-index: 0;
+  width:100%;
+  height:100%;
+}
+.default-back-container img {
+  width:100%;
+}
+.player-headers p{
+  display:inline-block;
+  font-size:150%;
+}
+.hide {
+  visibility: hidden !important;
+}
+.show {
+  visibility:visible !important;
+}
+.active {
+  color: green;
+  font-style: italic;
+  text-decoration: underline;
+}
+.next-round-btn {
+  visibility:hidden;
+  border: none;
+  background: lightseagreen;
+  color: white;
+  font-size: 140%;
+  border-radius: 5px;
+  padding: 5px 15px;
+  box-shadow: 2px 2px 3px black;
+  margin:0 auto;
+  outline: none;
+}
+.next-round-btn:active {
+  box-shadow: none;
+}

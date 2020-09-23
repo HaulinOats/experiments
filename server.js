@@ -55,6 +55,12 @@ app.post('/galaga/high-scores', (req, res)=>{
   res.send(true);
 })
 
+//BLACKJACK ROUTES
+
+app.get('/blackjack', (req, res)=>{
+  res.sendFile(`${publicPath}/blackjack`);
+})
+
 //CHRONOALBUM ROUTES
 app.get('/chronoalbums', (req, res)=>{
   res.sendFile(publicPath + '/chronoalbums');
