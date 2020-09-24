@@ -136,12 +136,12 @@ body {
 .active {
   color: green;
   font-style: italic;
-  text-decoration: underline;
+  font-weight:bold;
 }
 .next-round-btn {
   display:none;
   border: none;
-  background: lightseagreen;
+  background: cadetblue;
   color: white;
   font-size: 140%;
   border-radius: 5px;
@@ -150,6 +150,7 @@ body {
   margin:0 auto;
   outline: none;
   cursor:pointer;
+  margin-bottom:10px;
 }
 .next-round-btn:active {
   box-shadow: none;

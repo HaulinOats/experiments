@@ -7,6 +7,7 @@ let dealerTotal = 0;
 let playerIsStanding = false;
 let dealerIsStanding = false;
 let dealerTurn = false;
+let gameIsActive = true;
 
 //store deck container
 document.body.addEventListener('click', actionHandler);
@@ -41,7 +42,9 @@ function actionHandler(e){
     classes.forEach(className=>{
       switch(className){
         case "deck-card-back-img":
-          playNextCard();
+          if(gameIsActive){
+            playNextCard();
+          }
           break;
         case "stand-btn":
           standBtn.classList.add('hide');
@@ -113,16 +116,6 @@ function transitionEnd(e){
             if(playerTotal > 21){
               gameFinished('dealer');
               return;
-            } else if (playerTotal === 21){
-              playerStatus.textContent = "STANDING";
-              playerIsStanding = true;
-              standBtn.classList.add('hide');
-              if(dealerIsStanding){
-                checkEndResults();
-                return;
-              } else {
-                playNextCard();
-              }
             } else {
               if(dealerIsStanding){
                 dealerTurn = false;
@@ -159,6 +152,7 @@ function startGame(){
 }
 
 function startNextRound(){
+  gameIsActive = true;
   dealerTurn = false;
   playerCards = [];
   playerTotal = 0;
@@ -245,6 +239,7 @@ function checkEndResults(){
 }
 
 function gameFinished(player){
+  gameIsActive = false;
   standBtn.classList.add('hide');
   nextRoundBtn.classList.add('show');
   switch(player){
