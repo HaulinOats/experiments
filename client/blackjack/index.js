@@ -27,9 +27,13 @@ startGame();
 function actionHandler(e){
   let id = e.target.id;
   let classes = e.target.classList;
+  console.log(id);
   console.log(classes);
   //IDs
   switch(id){
+    case "game-status-text":
+      gameStatusText.classList.remove('show');
+      break;
     default:
   }
   //Classes
@@ -178,7 +182,7 @@ function startNextRound(){
 
   playerStatus.textContent = "";
   dealerStatus.textContent = "";
-  gameStatusText.style.display = 'none';
+  gameStatusText.classList.remove('show');
   nextRoundBtn.classList.remove('show');
   standBtn.classList.remove('hide');
 
@@ -254,10 +258,11 @@ function gameFinished(player){
       gameStatusText.textContent = 'TIE';
       break;
   }
-  gameStatusText.style.display = 'block';
+  gameStatusText.classList.add('show');
 }
 
 function playNextCard(){
+  //timeout gives DOM time to build card html before initiating flip animation
   setTimeout(()=>{
     document.querySelector('.deck-top-card').classList.add('flip-card');
   }, 100);
@@ -266,21 +271,24 @@ function playNextCard(){
 function buildAndPlaceTopCard(){
   cardIdx++;
   let card = cards[cardIdx];
-  //if next card exists, create and place at top of deck
-  if(card){
-    let cardHtml = `
-      <div data-name="${card.name}" data-value="${card.value}" class="deck-top-card card">
-        <div class="deck-card-back">
-          <img class="deck-card-back-img" src="img/back.svg" alt="card-back" />
-        </div>
-        <div class="deck-card-front">
-          <img src="img/${card.name}.svg" alt="back" />
-        </div>
-      </div>`;
-    topCardContainer.innerHTML = cardHtml;
-  } else {
-    console.log('end of deck reached');
+
+  //if card doesn't exist at index, shuffle deck, reset index, and set card
+  if(!card){
+    cardIdx = 0;
+    shuffle(cards);
+    card = cards[cardIdx];
   }
+
+  let cardHtml = `
+    <div data-name="${card.name}" data-value="${card.value}" class="deck-top-card card">
+      <div class="deck-card-back">
+        <img class="deck-card-back-img" src="img/back.svg" alt="card-back" />
+      </div>
+      <div class="deck-card-front">
+        <img src="img/${card.name}.svg" alt="back" />
+      </div>
+    </div>`;
+  topCardContainer.innerHTML = cardHtml;
 }
 
 function shuffle(array) {

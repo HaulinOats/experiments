@@ -3,7 +3,7 @@ body {
   font-family: 'DM Sans', sans-serif;
 }
 #game-status-text {
-  display:none;
+  display: none;
   position: absolute;
   text-align: center;
   top: 25%;
@@ -13,9 +13,27 @@ body {
   font-weight: bold;
   left: 0;
   z-index: 2;
+  background: cadetblue;
+  color: white;
+  text-shadow: 0px 0px 5px black;
 }
 .top-container {
-  text-align:center;
+  text-align: center;
+  display: inline-block;
+  width: 25%;
+  vertical-align: top;
+  margin-right:2%;
+}
+.bottom-container {
+  display:inline-block;
+  width:72%;
+}
+.top-container h1 {
+  margin:0;
+}
+.top-container p {
+  margin:0;
+  margin-bottom:5px;
 }
 .stand-btn {
   margin: 0 auto;
@@ -40,6 +58,7 @@ body {
   height: 180px;
   width: 130px;
   margin-bottom: 10px;
+  cursor:pointer;
 }
 .player-cards-container {
   display:inline-block;
@@ -59,7 +78,8 @@ body {
   z-index: 1;
   height:180px;
   width:130px;
-  transition:0.8s;
+  transition: 0.8s;
+  transition-property: transform;
   transform-style: preserve-3d;
   margin-right:8px;
 }
@@ -99,14 +119,19 @@ body {
   width:100%;
 }
 .player-headers p{
-  display:inline-block;
-  font-size:150%;
+  display: inline-block;
+  font-size: 150%;
+  margin: 0;
+  margin-bottom: 10px;
+}
+.header-text {
+
 }
 .hide {
-  visibility: hidden !important;
+  display: none !important;
 }
 .show {
-  visibility:visible !important;
+  display:block !important;
 }
 .active {
   color: green;
@@ -114,7 +139,7 @@ body {
   text-decoration: underline;
 }
 .next-round-btn {
-  visibility:hidden;
+  display:none;
   border: none;
   background: lightseagreen;
   color: white;
@@ -124,7 +149,27 @@ body {
   box-shadow: 2px 2px 3px black;
   margin:0 auto;
   outline: none;
+  cursor:pointer;
 }
 .next-round-btn:active {
   box-shadow: none;
+}
+@media screen and (max-width: 900px) {
+  .card,
+  .deck-container {
+    height: 140px;
+    width: 100px;
+  }
+}
+@media screen and (max-width: 600px) {
+  .top-card-container .card,
+  .deck-container {
+    height: 180px;
+    width: 130px;
+  }
+  .top-container,
+  .bottom-container{
+    display:block;
+    width:100%;
+  }
 }
