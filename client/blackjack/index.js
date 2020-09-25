@@ -28,8 +28,7 @@ startGame();
 function actionHandler(e){
   let id = e.target.id;
   let classes = e.target.classList;
-  console.log(id);
-  console.log(classes);
+
   //IDs
   switch(id){
     case "game-status-text":
@@ -92,11 +91,9 @@ function transitionEnd(e){
 
             if(dealerTotal > 21){
               gameFinished('player');
-              return;
             } else if(dealerTotal > 16 && dealerTotal <= 21){
               dealerStatus.textContent = "STANDING";
               dealerIsStanding = true;
-              console.log('DEALER is standing');
               if(playerIsStanding){
                 checkEndResults();
                 return;
@@ -115,7 +112,6 @@ function transitionEnd(e){
 
             if(playerTotal > 21){
               gameFinished('dealer');
-              return;
             } else {
               if(dealerIsStanding){
                 dealerTurn = false;
@@ -125,12 +121,15 @@ function transitionEnd(e){
             }
           }
 
-          showActivePlayerHeader();
+          highlightActivePlayer();
           buildAndPlaceTopCard();
 
           //keep dealing cards until both the dealer and player have 2 cards
           if(dealerCards.length < 2){
             playNextCard();
+          }
+          if(dealerCards.length === 2 && playerCards.length === 2){
+            standBtn.removeAttribute('disabled');
           }
           break;
       }
@@ -162,11 +161,13 @@ function startNextRound(){
   playerIsStanding = false;
 
   if(cardIdx > 40){
-    console.log('shuffling deck...');
     cardIdx = -1;
     shuffle(cards);
   }
 
+  standBtn.setAttribute('disabled', true);
+
+  //remove all cards from each player's container
   playerCardsContainer.querySelectorAll('.card').forEach(el=>{
     el.remove();
   })
@@ -184,7 +185,7 @@ function startNextRound(){
   playNextCard();
 }
 
-function showActivePlayerHeader(){
+function highlightActivePlayer(){
   if(dealerTurn){
     dealerHeader.classList.add('active');
     playerHeader.classList.remove('active');
@@ -218,10 +219,10 @@ function getCardTotals(){
     totalAces--;
   }
   
-  console.log('------------------------');
-  console.log(dealerTurn ? 'DEALER' : 'PLAYER');
-  console.log('card total: ', cardTotal);
-  console.log('cards: ', cards);
+  // console.log('------------------------');
+  // console.log(dealerTurn ? 'DEALER' : 'PLAYER');
+  // console.log('card total: ', cardTotal);
+  // console.log('cards: ', cards);
 
   return cardTotal;
 }
