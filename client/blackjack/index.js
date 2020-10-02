@@ -96,7 +96,6 @@ function transitionEnd(e){
               dealerIsStanding = true;
               if(playerIsStanding){
                 checkEndResults();
-                return;
               }
             } else {
               if(playerIsStanding){
@@ -128,6 +127,7 @@ function transitionEnd(e){
           if(dealerCards.length < 2){
             playNextCard();
           }
+          //enable 'stand' button after both players have been dealt 2 cards
           if(dealerCards.length === 2 && playerCards.length === 2){
             standBtn.removeAttribute('disabled');
           }

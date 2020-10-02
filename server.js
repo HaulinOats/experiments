@@ -19,7 +19,6 @@ if(process.env.COMPUTERNAME === 'BRETTS-LAPTOP') {
   redirect_uri = 'https://bc-experiments.herokuapp.com/chronoalbums/callback';
 }
 
-
 app.use(express.static(publicPath));
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -30,9 +29,9 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/', (req, res)=>{
-  res.sendFile(publicPath + '/index.html');
-})
+// app.get('/', (req, res)=>{
+//   res.sendFile(publicPath + '/index.html');
+// })
 
 //GALAGA ROUTES
 
@@ -41,10 +40,6 @@ const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
 const adapter = new FileSync('db.json')
 const db = low(adapter)
-
-app.get('/galaga', (req, res)=>{
-  res.sendFile(publicPath + '/galaga');
-})
 
 app.get('/galaga/high-scores', (req, res)=>{
   res.send(db.get('galaga.highScores').value());
@@ -55,16 +50,7 @@ app.post('/galaga/high-scores', (req, res)=>{
   res.send(true);
 })
 
-//BLACKJACK ROUTES
-
-app.get('/blackjack', (req, res)=>{
-  res.sendFile(`${publicPath}/blackjack`);
-})
-
 //CHRONOALBUM ROUTES
-app.get('/chronoalbums', (req, res)=>{
-  res.sendFile(publicPath + '/chronoalbums');
-})
 app.get('/login', (req, res) => {
   function generateRandomString(length) {
     var text = '';
