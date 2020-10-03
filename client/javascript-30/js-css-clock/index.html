@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS/CSS Clock</title>
+  <link rel="stylesheet" href="index.css"/>
+</head>
+<body>
+  <div id="clock-container">
+    <div class="hand second-hand"></div>
+    <div class="hand minute-hand"></div>
+    <div class="hand hour-hand"></div>
+    <div class="center-circle"></div>
+  </div>
+  <div id="time-container">
+    <span class="time time-hour"></span>:<span class="time time-minute"></span>:<span class="time time-second"></span>
+    <span class="time time-am-pm"></span>
+  </div>
+  <script>
+    let secondHand = document.querySelector('.second-hand');
+    let minuteHand = document.querySelector('.minute-hand');
+    let hourHand = document.querySelector('.hour-hand');
+    let timeHour = document.querySelector('.time-hour');
+    let timeMinute = document.querySelector('.time-minute');
+    let timeSecond = document.querySelector('.time-second');
+    let timeAMPM = document.querySelector('.time-am-pm');
+    
+    updateTime();
+    setInterval(updateTime, 1000);
+
+    function updateTime(){
+      let date = new Date();
+      let seconds = date.getSeconds();
+      let minutes = date.getMinutes();
+      let hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
+      let AMPM = date.getHours() > 12 ? 'PM' : 'AM';
+      
+      timeHour.textContent = hours;
+      timeMinute.textContent = minutes < 10 ? `0${minutes}` : minutes;
+      timeSecond.textContent = seconds < 10 ? `0${seconds}` : seconds;
+      timeAMPM.textContent = AMPM;
+
+      secondHand.style.transform = `rotateZ(${90 + (seconds * 6)}deg)`;
+      minuteHand.style.transform = `rotateZ(${90 + (minutes * 6)}deg)`;
+      hourHand.style.transform = `rotateZ(${90 + (hours * 30)}deg)`;
+    }
+  </script>
+</body>
+</html>
