@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Konami Code</title>
+</head>
+<body>
+  <h1>Reading Character Sequences</h1>
+  <p>The code phrase to type is: Mario</p>
+  <img id="mario" src="mario.png" alt="mario" style="display: none;width: 500px;">
+  <script>
+    let inputArray = [];
+    let secretCode = 'mario';
+    document.addEventListener('keyup', getInput);
+
+    function getInput(e){
+      inputArray.push(e.key);
+      if(inputArray.length > secretCode.length){
+        inputArray.splice(0, inputArray.length - secretCode.length);
+      }
+      if(inputArray.join('').toLowerCase().includes('mario')){
+        console.log("It'sa me, Mario!");
+        document.getElementById('mario').style.display = "block";
+      }
+    }
+  </script>
+</body>
+</html>
