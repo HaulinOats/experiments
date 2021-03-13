@@ -422,7 +422,7 @@ class GameScene extends Phaser.Scene {
 
   getScores(){
     axios.get('/galaga/high-scores').then(resp=>{
-      this.highScores = resp.data;
+      this.highScores = resp.data || [];
       this.highScores.sort(this.sortByScore);
       console.log(this.highScores);
     }).catch(err=>{

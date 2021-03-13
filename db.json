@@ -1,1 +1,14 @@
-{}
+{
+  "galaga": {
+    "highScores": [
+      {
+        "name": "Poopman",
+        "score": 200
+      },
+      {
+        "name": "Bob",
+        "score": 70
+      }
+    ]
+  }
+}
