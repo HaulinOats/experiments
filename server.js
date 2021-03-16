@@ -41,12 +41,22 @@ const FileSync = require('lowdb/adapters/FileSync')
 const adapter = new FileSync('db.json')
 const db = low(adapter)
 
+db.defaults({ highScores: [] }).write();
+
 app.get('/galaga/high-scores', (req, res)=>{
-  res.send(db.get('galaga.highScores').value());
+  res.send(db.get('highScores').value());
 })
 
 app.post('/galaga/high-scores', (req, res)=>{
-  db.set('galaga.highScores', req.body.highScores).write();
+  let highScores = db.get('highScores').value();
+  highScores.push(req.body.newHighScore);
+  highScores.sort((a,b)=>{
+    if(a.score > b.score) return -1;
+    if(a.score < b.score) return 1;
+    else return 0;
+  });
+  highScores = highScores.slice(0, 12);
+  db.set('highScores', highScores).write();
   res.send(true);
 })
 

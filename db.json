@@ -1,14 +1,28 @@
 {
-  "galaga": {
-    "highScores": [
-      {
-        "name": "Poopman",
-        "score": 200
-      },
-      {
-        "name": "Bob",
-        "score": 70
-      }
-    ]
-  }
+  "highScores": [
+    {
+      "name": "Poopman",
+      "score": 200
+    },
+    {
+      "name": "Yes",
+      "score": 90
+    },
+    {
+      "name": "Bob",
+      "score": 70
+    },
+    {
+      "name": "Hello",
+      "score": 30
+    },
+    {
+      "name": "Brett",
+      "score": 20
+    },
+    {
+      "name": "Brett",
+      "score": 10
+    }
+  ]
 }

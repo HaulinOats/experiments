@@ -17,6 +17,7 @@ class GameScene extends Phaser.Scene {
     this.enemyBulletDelay = 1000;
     this.enemySpeed = 1;
     this.shipLaserBorn = 0;
+    this.isShipDestroyed = false;
     this.enemiesMovingRight = true;
     this.enemiesMovingDown = true;
     this.score = 0;
@@ -319,15 +320,18 @@ class GameScene extends Phaser.Scene {
   }
 
   shipDestroyed(){
-    this.mainUIContainer.style.display = 'flex';
-    this.checkHighScores();
-    this.explosions.create(this.playerShip.x, this.playerShip.y);
-    this.destroyAllBullets();
-    this.playerShip.setVisible(false);
-    this.emitter.stop();
-    this.gameOver = true;
-    this.gameOverContainer.classList.add('show-ui-container');
-    this.yourScore.innerHTML = this.score;
+    if(!this.isShipDestroyed){
+      this.isShipDestroyed = true;
+      this.mainUIContainer.style.display = 'flex';
+      this.checkHighScores();
+      this.explosions.create(this.playerShip.x, this.playerShip.y);
+      this.destroyAllBullets();
+      this.playerShip.setVisible(false);
+      this.emitter.stop();
+      this.gameOver = true;
+      this.gameOverContainer.classList.add('show-ui-container');
+      this.yourScore.innerHTML = this.score;
+    }
   }
 
   playerFire(){
@@ -355,6 +359,7 @@ class GameScene extends Phaser.Scene {
   }
 
   resetGame(){
+    this.isShipDestroyed = false;
     this.score = 0;
     this.scoreText.setText('Score: 0');
     this.enemySpeed = 1;
@@ -403,16 +408,17 @@ class GameScene extends Phaser.Scene {
   }
   
   addNewHighScore(){
-    this.highScores.push({
+    let newHighScore = {
       name:this.yourNameInput.value,
       score:this.score
-    });
+    }
+    this.highScores.push(newHighScore);
     this.highScores.sort(this.sortByScore);
     this.highScores = this.highScores.slice(0, 12);
     this.buildHighScoresHTML();
 
     axios.post('/galaga/high-scores', {
-      highScores:this.highScores
+      newHighScore
     }).then(resp=>{
       console.log(resp.data);
     }).catch(err=>{
@@ -432,9 +438,13 @@ class GameScene extends Phaser.Scene {
 
   buildHighScoresHTML(){
     let scoresHTML = "";
-    this.highScores.forEach(scoreObj => {
-      scoresHTML += `<div><span class="score-name">${scoreObj.name}</span><span class="score-score">${scoreObj.score}</span></div>`;
-    });
+    if(this.highScores.length){
+      this.highScores.forEach(scoreObj => {
+        scoresHTML += `<div><span class="score-name">${scoreObj.name}</span><span class="score-score">${scoreObj.score}</span></div>`;
+      });
+    } else {
+      scoresHTML += `<div>No Scores</div>`;
+    }
     document.getElementById('high-scores-inner').innerHTML = scoresHTML;
   }
   
