@@ -163,7 +163,6 @@ function gridScreensaver(attachElement, imageArr, options){
     e.stopPropagation();
     //when a screensaver page change FINISHES (front page finishes fade in or out),
     //remove elements from page that's no longer in view to free DOM memory
-    console.log('handle transition: ', e);
     if(e.target.id === 'mvwsct_ui_gridScreensaverInner_frontGrid'){
       if(e.target.style.opacity === '0'){
         while(screensaverFront.lastChild){
