@@ -12,6 +12,22 @@ const stateKey = 'spotify_auth_state';
 const client_id = process.env.client_id;
 const client_secret = process.env.client_secret; 
 
+//Scavenger Hunt mongo/mongoose
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
+mongoose.connect('mongodb+srv://brett84c:lisa84@cluster0.hahsw.mongodb.net/Scavenger-Hunt?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true}).then(() => {
+  console.log('db connected');
+}, 
+err => {
+  if(err) throw err;
+});
+
+const userSchema = new Schema({
+  username: String,
+  password: String
+});
+const User = mongoose.model('User', userSchema);
+
 let redirect_uri;
 if(process.env.COMPUTERNAME === 'BRETTS-LAPTOP') {
   redirect_uri = `http://localhost:${port}/chronoalbums/callback`;
@@ -29,10 +45,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.get('/', (req, res)=>{
-//   res.sendFile(publicPath + '/index.html');
-// })
-
 //GALAGA ROUTES
 
 //db for galaga high scores
@@ -40,8 +52,6 @@ const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
 const adapter = new FileSync('db.json')
 const db = low(adapter)
-
-db.defaults({ highScores: [] }).write();
 
 app.get('/galaga/high-scores', (req, res)=>{
   res.send(db.get('highScores').value());
@@ -51,8 +61,8 @@ app.post('/galaga/high-scores', (req, res)=>{
   let highScores = db.get('highScores').value();
   highScores.push(req.body.newHighScore);
   highScores.sort((a,b)=>{
-    if(a.score > b.score) return -1;
-    if(a.score < b.score) return 1;
+    if(a.score < b.score) return -1;
+    if(a.score > b.score) return 1;
     else return 0;
   });
   highScores = highScores.slice(0, 12);

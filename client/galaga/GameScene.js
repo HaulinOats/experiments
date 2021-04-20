@@ -46,6 +46,10 @@ class GameScene extends Phaser.Scene {
       frameHeight:100
     })
     this.load.image('shipExhaust', 'assets/shipExhaust.png');
+    
+    //sound icons
+    this.load.image('mute', 'assets/mute.png');
+    this.load.image('unmute', 'assets/unmute.png');
   }
 
   create(){
@@ -92,6 +96,22 @@ class GameScene extends Phaser.Scene {
       classType:Explosion
     })
 
+    // this.muteIcon = this.add.sprite(this.game.config.width - 30, 25, 'mute').setInteractive();
+    // this.muteIcon.setScale(.05);
+    // this.unmuteIcon = this.add.sprite(this.game.config.width - 30, 25, 'unmute').setInteractive();
+    // this.unmuteIcon.setScale(.05);
+    // this.unmuteIcon.setVisible(false);
+
+    // this.muteIcon.on('pointerdown', e=>{
+    //   this.muteIcon.setVisible(false);
+    //   this.unmuteIcon.setVisible(true);
+    // });
+
+    // this.unmuteIcon.on('pointerdown', e=>{
+    //   this.muteIcon.setVisible(true);
+    //   this.unmuteIcon.setVisible(false);
+    // })
+
     //create text objects
     this.scoreText = new Text(this, 10, 10, `Score: 0`, {fontSize:'20px'});
 
@@ -134,6 +154,10 @@ class GameScene extends Phaser.Scene {
     this.yourNameInput.addEventListener('pointerdown', this.actionHandler.bind(this));
     this.highScoresContainer.addEventListener('pointerdown', this.actionHandler.bind(this));
     this.checkHighScoresBtn.addEventListener('pointerdown', this.actionHandler.bind(this));
+  }
+
+  clicky(e){
+    console.log(e);
   }
   
   actionHandler(e){
