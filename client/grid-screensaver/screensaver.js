@@ -3,7 +3,7 @@ let imagesArr = [];
 let options = {};
 
 //build images array
-for(let i = 1; i < 82; i++){
+for(let i = 1; i < 97; i++){
   imagesArr.push(`./img/${i}.jpg`);
 }
 
