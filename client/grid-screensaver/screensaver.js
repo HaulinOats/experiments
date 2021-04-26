@@ -1,4 +1,4 @@
-let mainContainer = document.querySelector('#main-container');
+let mainContainer = document.querySelector('.main-container');
 let imagesArr = [];
 let options = {};
 
@@ -7,10 +7,75 @@ for(let i = 1; i < 97; i++){
   imagesArr.push(`./img/${i}.jpg`);
 }
 
+let optionsContainer = document.querySelector('.grid-options-container');
+let optionsTab = document.querySelector('.options-tab');
+let optionsSubmit = document.querySelector('.options-submit');
+let optionInputs = document.querySelectorAll('.grid-options-container input');
+let optionsParams = new URLSearchParams(window.location.search.substr(1));
+
+//iterate the search parameters.
+for (let p of optionsParams) {
+  switch(p[0]){
+    case "opacityDuration":
+      options['opacityDuration'] = Number(p[1]);
+      document.querySelector('#opacity-duration-input').value = options.opacityDuration;
+      break;
+    case "pageChangeTimeout":
+      options['pageChangeTimeout'] = Number(p[1]);
+      document.querySelector('#page-change-timeout-input').value = options.pageChangeTimeout;
+      break;
+    case "kenBurnsScaling":
+      options['allowKenBurnsScaling'] = p[1] === '0' ? false : true;
+      document.querySelector('#ken-burns-scaling-input').checked = options.allowKenBurnsScaling;
+      break;
+    case "gridLayoutsId":
+      options['gridLayoutsId'] = Number(p[1]);
+      document.querySelector('#grid-layouts-id-input').value = options.gridLayoutsId;
+      break;
+  }
+}
+
+optionsTab.addEventListener('click', actionHandler);
+optionsSubmit.addEventListener('click', actionHandler);
+
+function actionHandler(e){
+  let classNames = e.target.classList;
+
+  for(let i = 0, len = classNames.length; i < len; i++){
+    switch(classNames[i]){
+      case "options-tab":
+        optionsContainer.classList.toggle('expand');
+        break;
+      case "options-submit":
+        let paramsObj = {};
+        
+        optionInputs.forEach(option => {
+          switch(option.id){
+            case "opacity-duration-input":
+              paramsObj['opacityDuration'] = Number(option.value);
+              break;
+            case "page-change-timeout-input":
+              paramsObj['pageChangeTimeout'] = Number(option.value);
+              break;
+            case "ken-burns-scaling-input":
+              paramsObj['kenBurnsScaling'] = Number(option.checked);
+              break;
+            case "grid-layouts-id-input":
+              paramsObj['gridLayoutsId'] = Number(option.value);
+              break;
+          }
+        })
+        let params = new URLSearchParams(paramsObj);
+        window.location.href = window.location.href.split('?')[0] + "?" + params.toString();
+        break;
+    }
+  }
+}
+
+//instantiates and starts screensaver
 let screensaver = gridScreensaver(mainContainer, imagesArr, options);
 
 // gridScreensaver - start
-
 /**
  * Launches grid screensaver
  * Leverages ES6 features. Cheatsheet at: https://devhints.io/es6
@@ -820,6 +885,8 @@ function gridScreensaver(attachElement, imageArr, options){
           {top:7, left:4, col:6, row:3},
           {top:7, left:0, col:4, row:3}
         ]];
+      default:
+        return getGridLayouts(1);
     }
   }
 
