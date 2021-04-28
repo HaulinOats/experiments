@@ -13,20 +13,20 @@ const client_id = process.env.client_id;
 const client_secret = process.env.client_secret; 
 
 //Scavenger Hunt mongo/mongoose
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
-mongoose.connect('mongodb+srv://brett84c:lisa84@cluster0.hahsw.mongodb.net/Scavenger-Hunt?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true}).then(() => {
-  console.log('db connected');
-}, 
-err => {
-  if(err) throw err;
-});
+// const mongoose = require('mongoose');
+// const { Schema } = mongoose;
+// mongoose.connect('mongodb+srv://brett84c:lisa84@cluster0.hahsw.mongodb.net/Scavenger-Hunt?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true}).then(() => {
+//   console.log('db connected');
+// }, 
+// err => {
+//   if(err) throw err;
+// });
 
-const userSchema = new Schema({
-  username: String,
-  password: String
-});
-const User = mongoose.model('User', userSchema);
+// const userSchema = new Schema({
+//   username: String,
+//   password: String
+// });
+// const User = mongoose.model('User', userSchema);
 
 let redirect_uri;
 if(process.env.COMPUTERNAME === 'BRETTS-LAPTOP') {
