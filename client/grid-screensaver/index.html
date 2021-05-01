@@ -10,6 +10,10 @@
       margin:0;
       overflow:hidden;
     }
+    .main-container {
+      width:100vw;
+      height:100vh;
+    }
     .grid-options-container {
       position: absolute;
       right: 10px;
@@ -67,8 +71,8 @@
       <input id="page-change-timeout-input" value="40" type="number" min="10" max="120" />
       <p>Allow Ken Burns Scaling:</p>
       <input id="ken-burns-scaling-input" type="checkbox" checked="true" />
-      <p>Grid Layouts ID (1 - 4):</p>
-      <input id="grid-layouts-id-input" type="number" value="1" min="1" max="4"/>
+      <p>Grid Layouts ID (0 - 4):</p>
+      <input id="grid-layouts-id-input" type="number" value="0" min="0" max="4"/>
       <button class="options-submit">Submit</button>
       <p class="options-tab">&#9776;</p>
     </div>
