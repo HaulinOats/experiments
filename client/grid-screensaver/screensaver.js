@@ -400,21 +400,18 @@ function gridScreensaver(attachElement, imageArr, options){
         transitionDelay = imageTransitionStartDelay * 2;
       }
     }
-    switch(shouldScale){
-      case true:
-        el.style.transform = 'scale3d(2,2,2)';
-        el.style.transformOrigin = getRandomTransformOrigin();
-        setTimeout(()=>{
-          el.style.transition = `transform ${pageChangeTimeout}s ease-in-out ${transitionDelay}s`;
-          el.style.transform = 'scale3d(1,1,1)';
-        },100);
-        break;
-      case false:
-        setTimeout(()=>{
-          el.style.transition = `letter-spacing ${pageChangeTimeout/gridsPerPage}s ease-in-out ${transitionDelay}s`;
-          el.style.letterSpacing = "5px";
-        },100);
-        break;
+    if(shouldScale){
+      el.style.transform = 'scale3d(2,2,2)';
+      el.style.transformOrigin = getRandomTransformOrigin();
+      setTimeout(()=>{
+        el.style.transition = `transform ${pageChangeTimeout}s ease-in-out ${transitionDelay}s`;
+        el.style.transform = 'scale3d(1,1,1)';
+      },100);
+    } else {
+      setTimeout(()=>{
+        el.style.transition = `letter-spacing ${pageChangeTimeout/gridsPerPage}s ease-in-out ${transitionDelay}s`;
+        el.style.letterSpacing = "5px";
+      },100);
     }
   }
 
