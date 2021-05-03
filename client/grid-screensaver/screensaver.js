@@ -529,16 +529,6 @@ function gridScreensaver(attachElement, imageArr, options){
     if(stopCallback) stopCallback();
   }
 
-  function remove(){
-    console.log('removing screensaver...');
-    screensaverEl.style.opacity = '0';
-    setTimeout(()=>{
-      screensaverEl.style.display = 'none';
-      screensaverEl.remove();
-      document.getElementById('mvwsct_ui_gridScreensaver_styles').remove();
-    }, 2000);
-  }
-
   function shuffleArr(arr) {
     var i, temp, j, len = arr.length;
     for (i = 0; i < len; i++) {
@@ -890,8 +880,7 @@ function gridScreensaver(attachElement, imageArr, options){
   return {
     isActive,
     start,
-    stop,
-    remove
+    stop
   }
 }
 // gridScreensaver - end	
