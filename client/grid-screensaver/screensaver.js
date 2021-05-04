@@ -174,7 +174,7 @@ function gridScreensaver(attachElement, imageArr, options){
     screensaverBack = document.getElementById('mvwsct_ui_gridScreensaverInner_backGrid');
     //'transitionend' listener allows smooth transitions that execute when memory allows
     screensaverEl.addEventListener('transitionend', (e)=>{
-      if(e.target.id === 'mvwsct_ui_gridScreensaver'){
+      // if(e.target.id === 'mvwsct_ui_gridScreensaver'){
         switch(e.target.style.opacity){
           case "1"://triggers when screensaver starts/loads (fade-in completes)
             console.log('screensaver loaded (active)');
@@ -188,7 +188,7 @@ function gridScreensaver(attachElement, imageArr, options){
             unloadScreensaver();
             break;
         }
-      }
+      // }
     });
 
     //triggers when front grid page finishes transition (Opacity change between 1 and 0)
@@ -508,11 +508,7 @@ function gridScreensaver(attachElement, imageArr, options){
     for(var i = 0; i < allGridItems.length; i++){
       allGridItems[i].style.transition = 'none';
     }
-    if(screensaverEl.style.opacity === '0'){
-      unloadScreensaver();
-    } else {
-      screensaverEl.style.opacity = '0';
-    }
+    screensaverEl.style.opacity = '0';
   }
 
   function unloadScreensaver(){
