@@ -216,19 +216,22 @@ body {
 }
 .watering-can {
   position: absolute;
-  left: -55%;
-  width: 40%;
+  top: 45%;
+  left: -70%;
+  width: 50%;
   transform: translate(0%, 0%) rotate(0deg);
-  animation:water 20s infinite;
+  animation: water 20s infinite;
+  z-index: 5;
 }
 .garden-shovel {
   position: absolute;
-  width: 40%;
+  width: 49%;
   left: 120%;
-  top: 17%;
+  top: 31%;
   transform: translate(0,0) rotate(40deg);
   transform-origin: top left;
   animation:shovel 20s infinite;
+  z-index:5;
   animation-delay: 10s;
 }
 /* Media Queries */
@@ -248,11 +251,25 @@ body {
     margin-top: 15px;
     width:75%;
   }
+  .watering-can {
+    top:32%;
+  }
+  .garden-shovel {
+    top: 17%;
+    width: 48%;
+  }
 }
 @media only screen and (min-width: 450px) {
   .basket-container {
     width:70%;
     margin-top:40px;
+  }
+  .watering-can {
+    width:48%;
+  }
+  .garden-shovel {
+    width: 42%;
+    top: 20%;
   }
 }
 @media only screen and (min-width: 500px) {
@@ -260,8 +277,14 @@ body {
     font-size:55px;
   }
   .basket-container {
-    width:60%;
+    width:70%;
     margin-top:40px;
+  }
+  .watering-can {
+    
+  }
+  .garden-shovel {
+    width:47%;
   }
 }
 @media only screen and (min-width: 550px) {
@@ -269,8 +292,14 @@ body {
     font-size:60px;
   }
   .basket-container {
-    width:55%;
+    width:65%;
     margin-top:30px;
+  }
+  .watering-can {
+    
+  }
+  .garden-shovel {
+    width:41%;
   }
 }
 @keyframes spinBG {
