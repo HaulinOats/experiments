@@ -18,6 +18,7 @@ body {
   background-image:url('./img/full-bloom.png');
   background-repeat:repeat;
   max-width:625px;
+  margin:0 auto;
 }
 /* .menu-tab {
   background: white;
