@@ -32,16 +32,6 @@ body {
   cursor: pointer;
   z-index:5;
 } */
-.background {
-  position: absolute;
-  background-image: url(./img/meadow.jpg);
-  background-size: cover;
-  z-index: 0;
-  animation: spinBG;
-  animation-duration: 20s;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-}
 .top-text-container {
   position: relative;
   font-size: 40px;
