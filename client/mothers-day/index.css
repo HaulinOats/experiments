@@ -87,7 +87,7 @@ body {
   font-size:100%;
 }
 .happy-text-container .h{
-  transform: rotate(-20deg);
+  transform: rotate(-29deg);
   color: #D14140;
   animation:happyTextHAnim 20s infinite;
   animation-delay: 5s;
@@ -167,7 +167,7 @@ body {
   color: #fbab45;
 }
 .day-text-container .y{
-  transform: rotate(-19deg) translate(0px, 3px);
+  transform: rotate(-19deg) translate(3px, 3px);
   color: #D14140;
   animation:dayTextYAnim 20s infinite;
   animation-delay: 12s;
@@ -253,10 +253,10 @@ body {
 }
 .garden-shovel {
   position: absolute;
-  width: 49%;
-  left: 120%;
   top: 31%;
-  transform: translate(0,0) rotate(40deg);
+  left: 120%;
+  width: 49%;
+  transform: translate(0%, 0%) rotate(40deg);
   transform-origin: top left;
   animation:shovel 20s infinite;
   z-index:5;
