@@ -350,8 +350,8 @@ body {
   100%{transform: translate(0%,0%) rotate(0deg);}
 }
 @keyframes shovel {
-  0%{transform: translate(0%,0%) rotate(0deg);}
-  30%{transform: translate(0%,0%) rotate(0deg);}
+  0%{transform: translate(0%,0%) rotate(40deg);}
+  30%{transform: translate(0%,0%) rotate(40deg);}
   35%{transform: translate(-140%,35%) rotate(10deg);}
   40%{transform: translate(-150%, 95%) rotate(30deg);}
   45%{transform: translate(-152%, 92%) rotate(52deg);}
@@ -361,8 +361,8 @@ body {
   65%{transform: translate(-145%, 97%) rotate(50deg);}
   70%{transform: translate(-153%, 90%) rotate(30deg);}
   75%{transform: translate(-140%,35%) rotate(10deg);}
-  80%{transform: translate(0%,0%) rotate(0deg);}
-  100%{transform: translate(0%,0%) rotate(0deg);}
+  80%{transform: translate(0%,0%) rotate(40deg);}
+  100%{transform: translate(0%,0%) rotate(40deg);}
 }
 @keyframes happyTextHAnim {
   0%{transform:scale(1) rotate(-29deg);}
