@@ -1,5 +1,5 @@
 var mainContainer = document.querySelector('.main-container');
-var imagesArr;
+var imagesArr = [];
 var options = {};
 //build images array
 for (var i = 1; i < 97; i++) {

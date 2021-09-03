@@ -1,0 +1,53 @@
+p {
+  margin:0;
+}
+body {
+  font-family: 'Share Tech Mono', monospace;
+  background: url(./img/day-bg.png) no-repeat fixed center center / cover;
+}
+.more-info {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: darkcyan;
+  margin: 0;
+  padding: 10px;
+  cursor:pointer;
+  user-select: none;
+}
+h1 {
+  font-family: 'Staatliches', cursive;
+  font-size: 40px;
+  text-align: center;
+  -webkit-text-stroke: black;
+  color: burlywood;
+  text-shadow: 0px 0px 10px black;
+  margin:0;
+  margin-top:10px;
+  margin-bottom:15px;
+}
+.main {
+  
+}
+.add-item-container {
+  background: rgba(255,255,255,.2);
+  padding: 6px;
+  border-radius: 3px;
+  color: burlywood;
+  font-size: 125%;
+}
+.item-select {
+  border-radius: 5px;
+  padding: 4px;
+  background: darkcyan;
+  user-select: none;
+  color: burlywood;
+  font-size:75%;
+}
+.item-info-table {
+
+}
+.item-info-table .seed-img {
+  display:block;
+  margin:0 auto;
+}
