@@ -1,5 +1,5 @@
 const mainContainer:HTMLElement = document.querySelector('.main-container');
-let imagesArr:[string];
+let imagesArr:string[] = [];
 let options:any = {};
 
 //build images array
